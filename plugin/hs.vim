@@ -4,7 +4,7 @@ au FileType haskell,hsc,cpphs,chs,happy,alex nnoremap K :Hoogle<CR>
 
 au FileType cabal setl makeprg=cabal\ check
 
-au BufWritePost *.hs,*.chs,*.hsc,*.cpphs call job_start('ghc-tags --ctags')
+au BufRead,BufWritePost *.hs,*.chs,*.hsc,*.cpphs call job_start('ghc-tags --ctags')
 
 fun CabalAsync()
     call job_start(["/bin/bash", "-c", "echo '' | cabal repl &> /tmp/errors"])
