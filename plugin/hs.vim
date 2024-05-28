@@ -14,7 +14,7 @@ fun Pop()
     exec 'cw'
 endfun
 
-au BufWritePost *.hs,*.x,*.y,*.chs,*.hsc,*.cpphs call CabalAsync()
+au BufRead,BufWritePost *.hs,*.x,*.y,*.chs,*.hsc,*.cpphs call CabalAsync()
 
 command! Cw call Pop()
 
