@@ -6,15 +6,21 @@ au FileType cabal setl makeprg=cabal\ check
 
 au BufRead,BufWritePost *.hs,*.chs,*.hsc,*.cpphs call job_start('ghc-tags --ctags')
 
+fun Hlint()
+    call job_start(["/bin/bash", "-c", "hlint " . expand ('%') . ' > /tmp/lints'])
+endfun
+
 fun CabalAsync()
     call job_start(["/bin/bash", "-c", "echo '' | cabal repl &> /tmp/errors"])
 endfun
 fun Pop()
     exec 'cg /tmp/errors'
+    exec 'caddf /tmp/lints'
     exec 'cw'
 endfun
 
 au BufRead,BufWritePost *.hs,*.x,*.y,*.chs,*.hsc,*.cpphs call CabalAsync()
+au BufRead,BufWritePost *.hs,*.cpphs call Hlint()
 
 command! Cw call Pop()
 
@@ -22,3 +28,4 @@ au FileType haskell,chaskell,happy,alex,hsc,cpphs setl makeprg=echo\ ''\ \\\|\ c
 
 au FileType haskell,chaskell,happy,alex,hsc,cpphs setl errorformat+=%f:%l:%c:\ %trror:\ [GHC-%n]
 au FileType haskell,chaskell,happy,alex,hsc,cpphs setl errorformat+=%f:%l:%c:\ %tarning:\ [GHC-%n]%m
+au FileType haskell,cpphs setl errorformat+=%E%f:%l:%c-%m
