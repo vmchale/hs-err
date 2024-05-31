@@ -25,7 +25,7 @@ This calls hlint asynchronously, populating /tmp/lints
 If you are not using a language server to provide hlint information:
 
 >
-au BufRead,BufWritePost *.hs,*.cpphs call Hlint()
+    au BufRead,BufWritePost *.hs,*.cpphs call Hlint()
 <
 
 *Cw*
