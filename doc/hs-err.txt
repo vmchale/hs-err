@@ -1,0 +1,35 @@
+errorformat strings for Haskell projects                                *hs-err*
+
+Three commands are provided, |CabalBuild|, |Hlint|, and |Cw|.
+
+*CabalBuild*
+
+This calls cabal asynchronously, populating /tmp/errors.
+
+You may wish to run this only on files which are neglected by the language
+server, viz.
+>
+    au BufRead,BufWritePost *.x,*.y,*.chs,*.hsc call CabalAsync()
+<
+
+Or you may wish to have it run on all Haskell files:
+
+>
+    au BufRead,BufWritePost *.hs,*.x,*.y,*.chs,*.hsc,*.cpphs call CabalAsync()
+<
+
+*Hlint*
+
+This calls hlint asynchronously, populating /tmp/lints
+
+If you are not using a language server to provide hlint information:
+
+>
+au BufRead,BufWritePost *.hs,*.cpphs call Hlint()
+<
+
+*Cw*
+
+This is like |cw|, but asynchronous.
+
+It works by reading errors from /tmp/errors and appending anything in /tmp/lints.

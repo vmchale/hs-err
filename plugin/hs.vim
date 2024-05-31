@@ -4,8 +4,6 @@ au FileType haskell,hsc,cpphs,chs,happy,alex nnoremap K :Hoogle<CR>
 
 au FileType cabal setl makeprg=cabal\ check
 
-au BufRead,BufWritePost *.hs,*.chs,*.hsc,*.cpphs call job_start('ghc-tags --ctags')
-
 fun Hlint()
     call job_start(["/bin/bash", "-c", "hlint " . expand ('%') . ' > /tmp/lints'])
 endfun
@@ -13,16 +11,15 @@ endfun
 fun CabalAsync()
     call job_start(["/bin/bash", "-c", "echo '' | cabal repl &> /tmp/errors"])
 endfun
-fun Pop()
+fun HsPop()
     exec 'cg /tmp/errors'
     exec 'caddf /tmp/lints'
     exec 'cw'
 endfun
 
-au BufRead,BufWritePost *.hs,*.x,*.y,*.chs,*.hsc,*.cpphs call CabalAsync()
-au BufRead,BufWritePost *.hs,*.cpphs call Hlint()
+command! CabalBuild call CabalAsync()
 
-command! Cw call Pop()
+command! Cw call HsPop()
 
 au FileType haskell,chaskell,happy,alex,hsc,cpphs setl makeprg=echo\ ''\ \\\|\ cabal\ repl
 
