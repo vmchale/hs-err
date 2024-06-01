@@ -13,7 +13,9 @@ fun CabalAsync()
 endfun
 fun HsPop()
     exec 'cg /tmp/errors'
-    exec 'caddf /tmp/lints'
+    if filereadable('/tmp/lints')
+        exec 'silent caddf /tmp/lints'
+    endif
     exec 'cw'
 endfun
 
