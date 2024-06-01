@@ -4,6 +4,10 @@ au FileType haskell,hsc,cpphs,chs,happy,alex nnoremap K :Hoogle<CR>
 
 au FileType cabal setl makeprg=cabal\ check
 
+fun HaskTags()
+    call job_start('ghc-tags --ctags')
+endfun
+
 fun Hlint()
     call job_start(["/bin/bash", "-c", "hlint " . expand ('%') . ' > /tmp/lints'])
 endfun
@@ -20,8 +24,12 @@ fun HsPop()
 endfun
 
 command! CabalBuild call CabalAsync()
-
 command! Cw call HsPop()
+command! HaskTags call HaskTags()
+
+if executable('ghc-tags')
+    au BufRead,BufWritePost *.x,*.y,*.chs,*.hsc call HaskTags()
+endif
 
 au FileType haskell,chaskell,happy,alex,hsc,cpphs setl makeprg=echo\ ''\ \\\|\ cabal\ repl
 
