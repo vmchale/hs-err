@@ -34,9 +34,10 @@ endif
 au FileType haskell,chaskell,happy,alex,hsc,cpphs setl makeprg=echo\ ''\ \\\|\ cabal\ repl
 
 au FileType haskell,chaskell,happy,alex,hsc,cpphs setl errorformat+=%-G[%.%#
+au FileType haskell,chaskell,happy,alex,hsc,cpphs setl errorformat+=%-G(%.%#
 au FileType haskell,chaskell,happy,alex,hsc,cpphs setl errorformat+=%-G\ -\ %.%#
-au FileType haskell,chaskell,happy,alex,hsc,cpphs setl errorformat+=%-G%[A-Z]%.%#
 
 au FileType haskell,chaskell,happy,alex,hsc,cpphs setl errorformat+=%f:%l:%c:\ %trror:\ [GHC-%n]
 au FileType haskell,chaskell,happy,alex,hsc,cpphs setl errorformat+=%f:%l:%c:\ %tarning:\ [GHC-%n]%m
 au FileType haskell,cpphs setl errorformat+=%E%f:%l:%c-%m
+au FileType haskell,chaskell,happy,alex,hsc,cpphs setl errorformat+=%-G%[A-Z]%.%#
