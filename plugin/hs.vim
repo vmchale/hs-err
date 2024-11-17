@@ -13,7 +13,7 @@ fun Hlint()
 endfun
 
 fun CabalAsync()
-    call job_start(["/bin/bash", "-c", "echo '' | cabal repl &> /tmp/errors"])
+    call job_start(["/bin/bash", "-c", "echo '' | cabal repl --enable-tests --enable-benchmarks &> /tmp/errors"])
 endfun
 
 au FileType haskell,chaskell,happy,alex,hsc,cpphs setl errorformat+=%-G[%.%#
